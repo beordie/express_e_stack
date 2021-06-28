@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+<!--    欢迎界面-->
+    <welcome-file-list>
+        <welcome-file>admin/login.html</welcome-file>
+    </welcome-file-list>
+
+<!--    配置网页请求-->
+    <servlet-mapping>
+        <servlet-name>user</servlet-name>
+        <url-pattern>*.udo</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>user</servlet-name>
+        <servlet-class>com.beordie.mvc.FrameServlet</servlet-class>
+<!--        配置文件地址-->
+        <init-param>
+            <param-name>contentConfig</param-name>
+            <param-value>config.properties</param-value>
+        </init-param>
+        <load-on-startup>0</load-on-startup>
+    </servlet>
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.html</url-pattern>-->
+<!--    </servlet-mapping>-->
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.css</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.png</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.jpg</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>default</servlet-name>-->
+<!--        <url-pattern>*.gif</url-pattern>-->
+<!--    </servlet-mapping>-->
+
+<!--    配置拦截器-->
+    <filter>
+        <filter-name>character</filter-name>
+        <filter-class>com.beordie.filter.CharacterEncodingFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>character</filter-name>
+        <url-pattern>*.udo</url-pattern>
+    </filter-mapping>
+</web-app>

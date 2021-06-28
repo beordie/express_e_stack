@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../../css/add.css"/>
+	</head>
+	<body>
+		<div id="app">
+			<div class="header">
+				<span>删除快递信息</span>
+			</div>
+			<div class="content">
+				<table>	
+					<tr>
+						<td class="text-right">运单号</td><td class="content_right"><input id="number" class="input inline-input" placeholder="请输入运单号码"> <span id="find" class="btn btn-info">立即查找</span></td>
+					</tr>
+				</table>
+			</div>
+			
+			
+			<div class="header">
+				<span>查找信息如下</span>
+			</div>
+			<div class="content">
+				<table>
+					<tr>
+						<td class="text-right">快递单号</td><td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+					</tr>
+					<tr>
+						<td class="text-right">快递公司</td><td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+					</tr>
+					<tr>
+						<td class="text-right">收货人姓名</td><td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+					</tr>
+					<tr>
+						<td class="text-right">手机号码</td><td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+					</tr>
+					<tr>
+						<td class="text-right">快递状态</td><td class="content_right" id="status">已签收</td>
+					</tr>
+					<tr>
+						<td></td><td class="content_right"><span class="btn btn-info" id="delete">立即删除</span> </td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+	<script src="/qrcode/jquery2.1.4.js"></script>
+	<script src="/layer/layer.js"></script>
+	<script>
+		$(".header:eq(1),.content:eq(1)").hide();
+		var expressId = null;
+		$(function(){
+			$("#find").click(function(){
+				var windowId = layer.load();
+				var number = $("#number").val();
+				$.getJSON("/express/find.do",{number:number},function(data){
+					layer.close(windowId);
+					//data:{"status":0,"result":"查询成功","data":{"id":2,"number":"124","username":"张三","userPhone":"13843838438","company":"京东快递","code":"213456","inTime":"Jul 21, 2020, 4:26:21 PM","status":0,"sysPhone":"18888888888"}}
+					layer.msg(data.result);
+					if(data.status == 0){
+						$(".header:eq(1),.content:eq(1)").fadeIn(1000);
+						expressId = data.data.id;
+						$("input:eq(1)").val(data.data.number);
+						$("input:eq(2)").val(data.data.company);
+						$("input:eq(3)").val(data.data.username);
+						$("input:eq(4)").val(data.data.userPhone);
+						$("input:eq(1),input:eq(2),input:eq(3),input:eq(4)").prop("disabled",true)
+						if(data.data.status == 0){
+							//未签收
+							$("#status").html("未签收");
+						}else{
+							//已签收
+							$("#status").html("已签收");
+						}
+					}
+				})
+			});
+
+			$("#delete").click(function(){
+				var windowId = layer.load();
+				$.getJSON("/express/delete.do",{id:expressId},function(data){
+					layer.close(windowId);
+					layer.msg(data.result);
+					if(data.status == 0){
+						$(".header:eq(1),.content:eq(1)").hide();
+					}
+				});
+			});
+		});
+	</script>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../../assets/css/layui.css">
+    <link rel="stylesheet" href="../../assets/css/view.css"/>
+    <title></title>
+</head>
+<body class="layui-view-body">
+<div class="layui-content">
+    <div class="layui-row">
+        <div class="layui-card">
+            <div class="layui-card-header">录入快件</div>
+            <form id="form" class="layui-form layui-card-body">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="code" required lay-verify="required" placeholder="请输入快递单号"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">快递公司</label>
+                    <div class="layui-input-block">
+                        <select name="company" lay-verify="" lay-search>
+                            <option>安能快递</option>
+                            <option>安能物流</option>
+                            <option>澳大利亚邮政</option>
+                            <option>阿根廷邮政</option>
+                            <option>爱沙尼亚邮政</option>
+                            <option>阿联酋邮政</option>
+                            <option>奥地利邮政</option>
+                            <option>阿尔巴尼亚邮政</option>
+                            <option>Aramex</option>
+                            <option>巴西邮政</option>
+                            <option>比利时邮政</option>
+                            <option>百世快运</option>
+                            <option>波兰邮政</option>
+                            <option>白俄罗斯邮政</option>
+                            <option>保加利亚邮政</option>
+                            <option>巴基斯坦邮政</option>
+                            <option>百福东方</option>
+                            <option>包裹信件</option>
+                            <option>晟邦物流</option>
+                            <option>城市100</option>
+                            <option>City-Link</option>
+                            <option>COE</option>
+                            <option>传喜物流</option>
+                            <option>德邦快递</option>
+                            <option>大田物流</option>
+                            <option>递四方</option>
+                            <option>DHL德国</option>
+                            <option>DHL全球</option>
+                            <option>DHL中国</option>
+                            <option>EMS</option>
+                            <option>EMS国际</option>
+                            <option>EMS经济快递</option>
+                            <option>FedEx中国</option>
+                            <option>FedEx国际</option>
+                            <option>FedEx美国</option>
+                            <option>飞豹快递</option>
+                            <option>凡宇快递</option>
+                            <option>飞远配送</option>
+                            <option>飞远(爱彼西)</option>
+                            <option>法国邮政</option>
+                            <option>芬兰邮政</option>
+                            <option>国通快递</option>
+                            <option>postco</option>
+                            <option>百世快递</option>
+                            <option>恒路物流</option>
+                            <option>黄马甲配送</option>
+                            <option>黑猫宅急便</option>
+                            <option>华企快运</option>
+                            <option>韩国邮政</option>
+                            <option>佳吉快运</option>
+                            <option>京东快递</option>
+                            <option>佳怡物流</option>
+                            <option>日本邮政</option>
+                            <option>筋斗云物流</option>
+                            <option>捷克邮政</option>
+                            <option>嘉里大通</option>
+                            <option>加运美</option>
+                            <option>快捷快递</option>
+                            <option>跨越速运</option>
+                            <option>克罗地亚邮政</option>
+                            <option>联昊通</option>
+                            <option>龙邦速递</option>
+                            <option>黎巴嫩邮政</option>
+                            <option>民航快递</option>
+                            <option>秘鲁邮政</option>
+                            <option>毛里求斯邮政</option>
+                            <option>马耳他邮政</option>
+                            <option>摩尔多瓦邮政</option>
+                            <option>马其顿邮政</option>
+                            <option>民邦快递</option>
+                            <option>挪威邮政</option>
+                            <option>南非邮政</option>
+                            <option>OnTrac</option>
+                            <option>葡萄牙邮政</option>
+                            <option>全峰快递</option>
+                            <option>全一快递</option>
+                            <option>如风达</option>
+                            <option>申通快递</option>
+                            <option selected="selected">顺丰速运</option>
+                            <option>速尔快递</option>
+                            <option>盛丰物流</option>
+                            <option>圣安物流</option>
+                            <option>盛辉物流</option>
+                            <option>瑞士邮政</option>
+                            <option>苏宁快递</option>
+                            <option>斯洛伐克邮政</option>
+                            <option>沙特邮政</option>
+                            <option>斯洛文尼亚邮政</option>
+                            <option>塞尔维亚邮政</option>
+                            <option>天天快递</option>
+                            <option>天地华宇</option>
+                            <option>土耳其邮政</option>
+                            <option>泰国邮政</option>
+                            <option>TNT</option>
+                            <option>UPS</option>
+                            <option>USPS</option>
+                            <option>万象物流</option>
+                            <option>乌克兰邮政</option>
+                            <option>万家物流</option>
+                            <option>信丰物流</option>
+                            <option>新邦物流</option>
+                            <option>西班牙邮政</option>
+                            <option>匈牙利邮政</option>
+                            <option>圆通速递</option>
+                            <option>韵达快递</option>
+                            <option>优速物流</option>
+                            <option>银捷速递</option>
+                            <option>远成物流</option>
+                            <option>运通中港快递</option>
+                            <option>邮政国内小包</option>
+                            <option>英国皇家邮政</option>
+                            <option>意大利邮政</option>
+                            <option>印度邮政</option>
+                            <option>亚美尼亚邮政</option>
+                            <option>越丰物流</option>
+                            <option>亚风速递</option>
+                            <option>邮政国际包裹</option>
+                            <option>中通快递</option>
+                            <option>宅急送</option>
+                            <option>中铁物流</option>
+                            <option>增益速递</option>
+                            <option>中铁快运</option>
+                            <option>芝麻开门</option>
+                            <option>中国邮政</option>
+                            <option>智利邮政</option>
+                            <option>中速快递</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">收件人姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="username" required lay-verify="required" placeholder="请输入收货人姓名"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">手机号码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phonenumber" required lay-verify="required" placeholder="请输入手机号码"
+                               autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn layui-btn-blue" lay-submit lay-filter="formDemo">立即提交</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="../../assets/layui.all.js"></script>
+<script src="/qrcode/jquery2.1.4.js"></script>
+<script src="/layer/layer.js"></script>
+<script>
+    var form = layui.form, layer = layui.layer;
+</script>
+<script>
+    // 检查单号
+    function checkNumber(number) {
+        var reg = new RegExp(/[1-9][0-9]{3}/i);
+        console.log(reg.test(number));
+        if (reg.test(number))
+            return true;
+        return false;
+    };
+    // 检查用户名
+    function checkName(username) {
+        var reg = new RegExp(/^[\u4E00-\u9FA5]{2,}$/i);
+        console.log(reg.test(username));
+        if (reg.test(username))
+            return true;
+        return false;
+    };
+    // 检查号码
+    function checkPhone(userPhone) {
+        var reg = new RegExp(/^1[3|4|5|7|8][0-9]{9}$/i);
+        console.log(reg.test(userPhone));
+        if (reg.test(userPhone))
+            return true;
+        return false;
+    };
+
+    $(function() {
+        $("#form").submit(function () {
+            var number = $("input:eq(0)").val();
+            var company = $("input:eq(1)").val();
+            var username = $("input:eq(2)").val();
+            var userPhone = $("input:eq(3)").val();
+            if (checkNumber(number) && checkName(username) && checkPhone(userPhone)) {
+                console.log(number,company,userPhone,username);
+                var windowId = layer.load();
+                $.post("/express/insert.udo", {
+                    number: number,
+                    company: company,
+                    username: username,
+                    userPhone: userPhone
+                }, function (data) {
+                    layer.close(windowId);
+                    layer.msg(data.result);
+                    if (data.status == 0) {
+                        //录入成功
+                        $("input").val("");
+                        $("input:eq(1)").val("顺丰速运");
+                    } else {
+                        //录入失败
+                    }
+                });
+            } else {
+                window.alert("信息格式错误");
+            }
+            return false;
+        });
+    });
+</script>
+</body>
+</html>

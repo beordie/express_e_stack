@@ -1,0 +1,33 @@
+body{
+	background: #fff;
+}
+.tab{
+	width:100%;
+	font-size:14px;
+}
+.tab,.tab td,.tab th{
+	border:1px solid #eee;
+	border-collapse: collapse;
+}
+.tab td,.tab th{
+	text-align: left;
+	padding: 10px;
+}
+.tab th{
+	font-weight: 100;
+}
+.tab-hover tr:hover{
+	background: #f5f6f7;
+}
+.active{
+	background: #f5f6f7;
+}
+.btn-danger{
+	background: #ff5522;
+	color:#fff;
+	padding: 4px 7px;
+	font-size:12px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
