@@ -203,7 +203,20 @@ public class ExpressController {
      */
     @ResponseText("/express/delete.udo")
     public String delete(HttpServletRequest request, HttpServletResponse response) {
-        return null;
+        int id = Integer.parseInt(request.getParameter("id"));
+        int result = service.deleteExpress(id);
+
+        Message message = new Message();
+        if (result > 0) {
+            message.setStatus(0);
+            message.setResult("删除成功");
+        } else {
+            message.setStatus(-1);
+            message.setResult("删除失败");
+        }
+        String json = JsonUtils.parseObject(message);
+
+        return json;
     }
     
     /**

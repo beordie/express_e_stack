@@ -56,7 +56,7 @@
 			$("#find").click(function(){
 				var windowId = layer.load();
 				var number = $("#number").val();
-				$.getJSON("/express/find.do",{number:number},function(data){
+				$.getJSON("/express/findByNumber.udo",{number:number},function(data){
 					layer.close(windowId);
 					//data:{"status":0,"result":"查询成功","data":{"id":2,"number":"124","username":"张三","userPhone":"13843838438","company":"京东快递","code":"213456","inTime":"Jul 21, 2020, 4:26:21 PM","status":0,"sysPhone":"18888888888"}}
 					layer.msg(data.result);
@@ -81,7 +81,7 @@
 
 			$("#delete").click(function(){
 				var windowId = layer.load();
-				$.getJSON("/express/delete.do",{id:expressId},function(data){
+				$.getJSON("/express/delete.udo",{id:expressId},function(data){
 					layer.close(windowId);
 					layer.msg(data.result);
 					if(data.status == 0){
