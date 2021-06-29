@@ -6,7 +6,9 @@ import com.beordie.model.ResultData;
 import com.beordie.model.StandardExpress;
 import com.beordie.mvc.ResponseText;
 import com.beordie.service.IExpressService;
+import com.beordie.service.IUserService;
 import com.beordie.service.impl.ExpressService;
+import com.beordie.service.impl.UserServiceImpl;
 import com.beordie.utils.AdminUtils;
 import com.beordie.utils.JsonUtils;
 
@@ -23,6 +25,7 @@ import java.util.Map;
  */
 public class ExpressController {
     IExpressService service = new ExpressService();
+    IUserService userService = new UserServiceImpl();
     /**
      * @description 用于获取控制台所需的快递数据
      * @author 30500
@@ -33,8 +36,10 @@ public class ExpressController {
     @ResponseText("/express/console.udo")
     public String getConsoleData(HttpServletRequest request, HttpServletResponse response) {
         List<Map<String, Integer>> result = service.getConsoleData();
+        Map<String, Integer> userData = userService.getConsoleData();
         Message message = new Message();
-        if (result != null) {
+        if (result != null && userData != null) {
+            result.add(userData);
             message.setData(result);
             message.setResult("查询成功");
             message.setStatus(0);
@@ -89,6 +94,7 @@ public class ExpressController {
         String number = request.getParameter("number");
         Express express = service.getByNUmber(number);
         Message message = new Message();
+
         if (express == null) {
             message.setStatus(-1);
             message.setResult("查询失败");

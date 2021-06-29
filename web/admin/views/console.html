@@ -44,7 +44,7 @@
                             <div class="meta">
                                 <span>快递员人数</span>
                             </div>
-                            <div class="total" id="total">888</div>
+                            <div class="total" id="data3_size">888</div>
                         </div>
                     </div>
                     <div class="chart-body">
@@ -54,7 +54,7 @@
                     <div class="chart-footer">
                         <div class="field">
                             <span>日注册量</span>
-                            <span>88</span>
+                            <span id="data3_day">88</span>
                         </div>
                     </div>
                 </div>
@@ -139,6 +139,8 @@
                 $("#data1_day").html(data.data[0].data1_day);
                 $("#data2_size").html(data.data[1].data2_size);
                 $("#data2_day").html(data.data[1].data2_day);
+                $("#data3_size").html(data.data[2].data3_size);
+                $("#data3_day").html(data.data[2].data3_day);
             }
         }, "JSON");
     });

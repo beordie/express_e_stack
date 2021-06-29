@@ -3,28 +3,20 @@ package com.beordie.model;
 import java.util.Date;
 
 /**
- * @Classname Users
- * @Description 用户
- * @Date 2021/6/25 15:57
+ * @Classname Admin
+ * @Description 管理员
+ * @Date 2021/6/29 10:42
  * @Created 30500
  */
-public class Users {
+public class Admin {
     private Integer id;
-    private String userName;
+    private String name;
     private String password;
     private String loginIp;
     private Date loginTime;
     private Date createTime;
-    private String userPhone;
+    private String phone;
     private String number;
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
     public Integer getId() {
         return id;
@@ -34,29 +26,6 @@ public class Users {
         this.id = id;
     }
 
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
-    public Integer getUserId() {
-        return id;
-    }
-
-    public void setUserId(Integer userId) {
-        this.id = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getPassword() {
         return password;
@@ -88,5 +57,29 @@ public class Users {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

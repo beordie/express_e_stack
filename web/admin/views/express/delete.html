@@ -63,6 +63,7 @@
 					if(data.status == 0){
 						$(".header:eq(1),.content:eq(1)").fadeIn(1000);
 						expressId = data.data.id;
+						console.log(expressId);
 						$("input:eq(1)").val(data.data.number);
 						$("input:eq(2)").val(data.data.company);
 						$("input:eq(3)").val(data.data.username);

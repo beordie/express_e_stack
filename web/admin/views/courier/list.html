@@ -14,50 +14,65 @@
 
 	</head>
 	<body>
-	<table class="tab tab-hover">
-		<tr class="active">
-			<th>编号</th><th>姓名</th><th>手机号码</th><th>身份证</th><th>密码</th><th>派件数</th><th>注册时间</th><th>上次登陆时间</th>
-		</tr>
-		<tr>
-			<td>1001</td>
-			<td>帅哥一枚</td>
-			<td>13843838438</td>
-			<td>******</td>
-			<td>wsygdsb</td>
-			<td>10w+</td>
-			<td>无</td>
-			<td>无</td>
-		</tr>
-		<tr>
-			<td>1001</td>
-			<td>帅哥一枚</td>
-			<td>13843838438</td>
-			<td>******</td>
-			<td>wsygdsb</td>
-			<td>10w+</td>
-			<td>无</td>
-			<td>无</td>
-		</tr>
-		<tr>
-			<td>1001</td>
-			<td>帅哥一枚</td>
-			<td>13843838438</td>
-			<td>******</td>
-			<td>wsygdsb</td>
-			<td>10w+</td>
-			<td>无</td>
-			<td>无</td>
-		</tr>
-		<tr>
-			<td>1001</td>
-			<td>帅哥一枚</td>
-			<td>13843838438</td>
-			<td>******</td>
-			<td>wsygdsb</td>
-			<td>10w+</td>
-			<td>无</td>
-			<td>无</td>
-		</tr>
+	<table class="tab tab-hover" id="users_list">
+		<script>
+			$(function(){
+				$("#users_list").bootstrapTable({
+					url:"/admin/findAll.udo",//数据地址
+					striped:true,//是否显示行的间隔
+					pageNumber:1,//初始化加载第几页
+					pagination:true,//是否分页
+					sidePagination:'server',
+					pageSize:5,
+					pageList:[5,10,20],
+					showRefresh:true,
+					queryParams:function(params){
+						var temp = {
+							offset:params.offset,
+							pageNumber:params.limit
+						};
+						return temp;
+					},
+					columns:[
+						{
+							title:"编号",
+							field:"id",
+							sortable:false
+						},
+						{
+							title:"姓名",
+							field:"userName",
+							sortable:false
+						},
+						{
+							title:"手机号码",
+							field:"userPhone",
+							sortable:false
+						},
+						{
+							title:"身份证号",
+							field:"number",
+							sortable:false
+						},
+						{
+							title:"派件数",
+							field:"userPhone",
+							sortable:false
+						},
+						{
+							title:"注册时间",
+							field:"createTime",
+							sortable:false
+						},
+						{
+							title:"上次登录时间",
+							field:"loginTime",
+							sortable:false
+						},
+					]
+				});
+			});
+		</script>
 	</table>
 	</body>
 </html>

@@ -112,7 +112,7 @@ public class ExpressService implements IExpressService {
 
     @Override
     public int deleteExpress(int id) {
-        return 0;
+        return expressDao.deleteExpress(id);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package com.beordie.controller;
 
-import com.beordie.model.Message;
-import com.beordie.model.Users;
+import com.beordie.model.*;
 import com.beordie.mvc.ResponseText;
 import com.beordie.mvc.ResponseView;
 import com.beordie.service.IUserService;
@@ -11,6 +10,8 @@ import com.beordie.utils.JsonUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname AdminController
@@ -35,10 +36,14 @@ public class AdminController {
             Date time = new Date();
             userService.updateIpLoginTime(user.getUserId(), ip, time);
             msg = new Message(0, "登陆成功");
+            request.getSession().setAttribute("userName", user.getUserName());
+            request.getSession().setAttribute("userPhone", user.getUserPhone());
         } else {
             msg = new Message(-1, "登陆失败");
         }
         String result = JsonUtils.parseObject(msg);
         return result;
     }
+
+
 }
