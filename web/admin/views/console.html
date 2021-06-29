@@ -20,7 +20,7 @@
                             <div class="meta">
                                 <span>用户人数</span>
                             </div>
-                            <div class="total">6666</div>
+                            <div class="total" id="data4_size">-</div>
                         </div>
                     </div>
                     <div class="chart-body">
@@ -30,7 +30,7 @@
                     <div class="chart-footer">
                         <div class="field">
                             <span>日注册量</span>
-                            <span>666</span>
+                            <span id="data4_day">-</span>
                         </div>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                             <div class="meta">
                                 <span>快递员人数</span>
                             </div>
-                            <div class="total" id="data3_size">888</div>
+                            <div class="total" id="data3_size">-</div>
                         </div>
                     </div>
                     <div class="chart-body">
@@ -54,7 +54,7 @@
                     <div class="chart-footer">
                         <div class="field">
                             <span>日注册量</span>
-                            <span id="data3_day">88</span>
+                            <span id="data3_day">-</span>
                         </div>
                     </div>
                 </div>
@@ -141,6 +141,8 @@
                 $("#data2_day").html(data.data[1].data2_day);
                 $("#data3_size").html(data.data[2].data3_size);
                 $("#data3_day").html(data.data[2].data3_day);
+                $("#data4_size").html(data.data[3].data4_size);
+                $("#data4_day").html(data.data[3].data4_day);
             }
         }, "JSON");
     });

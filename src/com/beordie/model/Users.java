@@ -17,6 +17,15 @@ public class Users {
     private Date createTime;
     private String userPhone;
     private String number;
+    private Integer total;
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
 
     public String getNumber() {
         return number;

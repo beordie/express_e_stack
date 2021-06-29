@@ -66,12 +66,13 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
     }
 
     @Override
-    public int insert(String username, String password, String phone, String number) {
-        List<String> params = new ArrayList<>();
+    public int insert(String username, String password, String phone, String number, int identity) {
+        List<Object> params = new ArrayList<>();
         params.add(username);
         params.add(password);
         params.add(phone);
         params.add(number);
+        params.add(identity);
         int result = 0;
         try {
             result = super.update(SQL_INSERT, params);
@@ -84,11 +85,12 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
     }
 
     @Override
-    public int update(String username, String password, String phone, int id) {
+    public int update(String username, String password, String phone, String number, int id) {
         List<Object> params = new ArrayList<>();
         params.add(username);
         params.add(password);
         params.add(phone);
+        params.add(number);
         params.add(id);
         int result = 0;
         try {
@@ -102,9 +104,10 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
     }
 
     @Override
-    public Users getByPhone(String phone) {
-        List<String> params = new ArrayList<>();
+    public Users getByPhone(String phone, int identity) {
+        List<Object> params = new ArrayList<>();
         params.add(phone);
+        params.add(identity);
         Users users = null;
         try {
             resultSet = super.query(SQL_FIND_BY_PHONE, params);
@@ -128,10 +131,29 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
     }
 
     @Override
-    public int[] getConsoleData() {
+    public int[] getConsoleDataCourer() {
         int[] result = null;
         try {
-            resultSet = super.query(SQL_CONSOLE, null);
+            resultSet = super.query(SQL_CONSOLE_COURER, null);
+            if (resultSet.next()) {
+                result = new int[2];
+                result[0] = resultSet.getInt(1);
+                result[1] = resultSet.getInt(2);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            super.close();
+        }
+
+        return result;
+    }
+
+    @Override
+    public int[] getConsoleDataUser() {
+        int[] result = null;
+        try {
+            resultSet = super.query(SQL_CONSOLE_USER, null);
             if (resultSet.next()) {
                 result = new int[2];
                 result[0] = resultSet.getInt(1);
@@ -152,7 +174,7 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
         params.add(id);
         int result = 0;
         try {
-            result = super.update(SQL_INSERT, params);
+            result = super.update(SQL_DELETE, params);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -162,15 +184,17 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
     }
 
     @Override
-    public List<Users> getAllUsers(boolean isLimit, int offset, int pageNum) {
+    public List<Users> getAllUsers(boolean isLimit, int offset, int pageNum,int identity) {
         List<Users> list = new ArrayList<>();
+        List<Integer> params = new ArrayList<>();
+        params.add(identity);
+
         if (!isLimit) { // 不需要分页
-            resultSet = super.query(SQL_SELECT, null);
+            resultSet = super.query(SQL_SELECT_COURER, null);
         } else { // 需要进行分页
-            List<Integer> params = new ArrayList<>();
             params.add(offset);
             params.add(pageNum);
-            resultSet = super.query(SQL_SELECT_LIMIT, params);
+            resultSet = super.query(SQL_SELECT_LIMIT_COURER, params);
         }
         try {
             while (resultSet.next()) {
@@ -183,6 +207,7 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
                 users.setCreateTime(resultSet.getDate("createtime"));
                 users.setUserPhone(resultSet.getString("phone"));
                 users.setNumber(resultSet.getString("number"));
+                users.setTotal(resultSet.getInt(9));
                 list.add(users);
             }
         } catch (SQLException throwables) {

@@ -18,7 +18,7 @@
 		<script>
 			$(function(){
 				$("#users_list").bootstrapTable({
-					url:"/admin/findAll.udo",//数据地址
+					url:"/user/findAll.udo",//数据地址
 					striped:true,//是否显示行的间隔
 					pageNumber:1,//初始化加载第几页
 					pagination:true,//是否分页
@@ -29,7 +29,8 @@
 					queryParams:function(params){
 						var temp = {
 							offset:params.offset,
-							pageNumber:params.limit
+							pageNumber:params.limit,
+							courer:0
 						};
 						return temp;
 					},
@@ -56,7 +57,7 @@
 						},
 						{
 							title:"派件数",
-							field:"userPhone",
+							field:"total",
 							sortable:false
 						},
 						{

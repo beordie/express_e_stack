@@ -3,8 +3,11 @@ package com.beordie.controller;
 import com.beordie.model.*;
 import com.beordie.mvc.ResponseText;
 import com.beordie.mvc.ResponseView;
+import com.beordie.service.IAdminService;
 import com.beordie.service.IUserService;
+import com.beordie.service.impl.AdminService;
 import com.beordie.service.impl.UserServiceImpl;
+import com.beordie.utils.AdminUtils;
 import com.beordie.utils.JsonUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +23,7 @@ import java.util.Map;
  * @Created 30500
  */
 public class AdminController {
-    private IUserService userService = new UserServiceImpl();
+    private IAdminService adminService = new AdminService();
 
     @ResponseText("/admin/login.udo")
     public String login(HttpServletRequest request, HttpServletResponse response) {
@@ -29,15 +32,15 @@ public class AdminController {
 
         // 消息结构
         Message msg = null;
-        Users user = userService.getByNamePass(name, password);
+        Admin admin = adminService.getByNamePass(name, password);
         // 判断密码和用户名是否正确
-        if (user != null) {
+        if (admin != null) {
             String ip = request.getRemoteAddr();
             Date time = new Date();
-            userService.updateIpLoginTime(user.getUserId(), ip, time);
+            adminService.updateIpLoginTime(admin.getId(), ip, time);
             msg = new Message(0, "登陆成功");
-            request.getSession().setAttribute("userName", user.getUserName());
-            request.getSession().setAttribute("userPhone", user.getUserPhone());
+            request.getSession().setAttribute("userName", admin.getName());
+            request.getSession().setAttribute("userPhone", admin.getPhone());
         } else {
             msg = new Message(-1, "登陆失败");
         }
@@ -45,5 +48,11 @@ public class AdminController {
         return result;
     }
 
+    @ResponseText("/admin/quit.udo")
+    public String quit(HttpServletRequest request, HttpServletResponse response) {
+        AdminUtils.quit(request.getSession());
+        Message message = new Message(0, "退出成功");
+        return JsonUtils.parseObject(message);
+    }
 
 }

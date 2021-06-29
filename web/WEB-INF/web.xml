@@ -51,6 +51,15 @@
 
 <!--    配置拦截器-->
     <filter>
+        <filter-name>passport</filter-name>
+        <filter-class>com.beordie.filter.PassportFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>passport</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>character</filter-name>
         <filter-class>com.beordie.filter.CharacterEncodingFilter</filter-class>
     </filter>
@@ -58,4 +67,5 @@
         <filter-name>character</filter-name>
         <url-pattern>*.udo</url-pattern>
     </filter-mapping>
+
 </web-app>

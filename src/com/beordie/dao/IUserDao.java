@@ -13,23 +13,25 @@ import java.util.List;
  */
 public interface IUserDao {
     // 查询控制台需要数据
-    String SQL_CONSOLE = "SELECT COUNT(ID) data_size,COUNT(TO_DAYS(CREATETIME)=TO_DAYS(NOW()) OR NULL) data_day FROM  USERS";
+    String SQL_CONSOLE_COURER = "SELECT COUNT(ID) data_size,COUNT(TO_DAYS(CREATETIME)=TO_DAYS(NOW()) OR NULL) data_day FROM USERS WHERE IDENTITY=0";
+    // 查询控制台需要数据
+    String SQL_CONSOLE_USER = "SELECT COUNT(ID) data_size,COUNT(TO_DAYS(CREATETIME)=TO_DAYS(NOW()) OR NULL) data_day FROM USERS WHERE IDENTITY=1";
     // 根据登录名和密码查询数据库信息
     String SQL_FIND_NAME_PASSWORD = "SELECT * FROM USERS WHERE USERNAME=? AND PASSWORD=?";
     // 根据管理 id 更新登陆ip和时间
     String SQL_UPDATE_IP_LOGINTIME = "UPDATE USERS SET LOGINIP=?, LOGINTIME=? WHERE ID=?";
     // 新增一条数据项
-    String SQL_INSERT = "INSERT INTO USERS VALUES(NULL,?,?,NULL,NULL,NOW(),?,?)";
+    String SQL_INSERT = "INSERT INTO USERS VALUES(NULL,?,?,NULL,NULL,NOW(),?,?,?)";
     // 删除一条记录
     String SQL_DELETE = "DELETE FROM USERS WHERE ID=?";
     // 跟新数据
-    String SQL_UPDATE = "UPDATE USERS SET USERNAME=?,PHONE=?,PASSWORD=? WHERE ID=?";
+    String SQL_UPDATE = "UPDATE USERS SET USERNAME=?,PASSWORD=?,PHONE=?,NUMBER=? WHERE ID=?";
     // 查询所有
-    String SQL_SELECT = "SELECT * FROM USERS";
+    String SQL_SELECT_COURER = "SELECT U.ID,U.USERNAME,U.PASSWORD,U.LOGINIP,U.LOGINTIME,U.CREATETIME,U.PHONE,U.NUMBER,COUNT(E.OUTTIME) TOTAL FROM USERS U LEFT OUTER JOIN EXPRESS E ON U.PHONE=E.SYSPHONE WHERE IDENTITY=? GROUP BY(U.id)";
     // 分页查询
-    String SQL_SELECT_LIMIT = "SELECT * FROM USERS LIMIT ?,?";
+    String SQL_SELECT_LIMIT_COURER = "SELECT U.ID,U.USERNAME,U.PASSWORD,U.LOGINIP,U.LOGINTIME,U.CREATETIME,U.PHONE,U.NUMBER,COUNT(E.OUTTIME) TOTAL FROM USERS U LEFT OUTER JOIN EXPRESS E ON U.PHONE=E.SYSPHONE WHERE IDENTITY=? GROUP BY(U.id) LIMIT ?,?";
     // 根据电话查询
-    String SQL_FIND_BY_PHONE = "SELECT * FROM USERS WHERE PHONE = ?";
+    String SQL_FIND_BY_PHONE = "SELECT * FROM USERS WHERE PHONE=? AND IDENTITY=?";
 
     /**
      * @description 根据登录名和密码查询
@@ -56,7 +58,7 @@ public interface IUserDao {
      * @type [boolean, int, int]
      * @return java.util.List<com.beordie.model.Users>
      */
-    public List<Users> getAllUsers(boolean isLimit, int offset, int pageNum);
+    public List<Users> getAllUsers(boolean isLimit, int offset, int pageNum, int idetity);
 
     /**
      * @description 插入一条数据
@@ -65,7 +67,7 @@ public interface IUserDao {
      * @type [java.lang.String, java.lang.String, java.lang.String]
      * @return int
      */
-    public int insert(String username, String password, String phone, String number);
+    public int insert(String username, String password, String phone, String number, int identity);
 
     /**
      * @description 修改记录
@@ -74,7 +76,7 @@ public interface IUserDao {
      * @type [java.lang.String, java.lang.String, java.lang.String, int]
      * @return int
      */
-    public int update(String username, String password, String phone, int id);
+    public int update(String username, String password, String phone, String number, int id);
 
     /**
      * @description 删除一条记录
@@ -92,8 +94,8 @@ public interface IUserDao {
      * @type []
      * @return int[]
      */
-    public int[] getConsoleData();
-
+    public int[] getConsoleDataCourer();
+    public int[] getConsoleDataUser();
     /**
      * @description 根据电话查询
      * @author 30500
@@ -101,5 +103,5 @@ public interface IUserDao {
      * @type [java.lang.String]
      * @return com.beordie.model.Users
      */
-    public Users getByPhone(String phone);
+    public Users getByPhone(String phone, int identity);
 }

@@ -36,10 +36,11 @@ public class ExpressController {
     @ResponseText("/express/console.udo")
     public String getConsoleData(HttpServletRequest request, HttpServletResponse response) {
         List<Map<String, Integer>> result = service.getConsoleData();
-        Map<String, Integer> userData = userService.getConsoleData();
+        List<Map<String, Integer>> userData = userService.getConsoleData();
         Message message = new Message();
         if (result != null && userData != null) {
-            result.add(userData);
+            result.add(userData.get(0));
+            result.add(userData.get(1));
             message.setData(result);
             message.setResult("查询成功");
             message.setStatus(0);

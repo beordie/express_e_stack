@@ -14,42 +14,61 @@
 
 	</head>
 	<body>
-		<table class="tab tab-hover">
-			<tr class="active">
-				<th>编号</th><th>昵称</th><th>手机号码</th><th>密码</th><th>注册时间</th><th>上次登陆时间</th>
-			</tr>
-			<tr>
-				<td>1001</td>
-				<td>帅哥一枚</td>
-				<td>13843838438</td>
-				<td>******</td>
-				<td>2088-1-1</td>
-				<td>2088-1-1</td>
-			</tr>
-			<tr>
-				<td>1001</td>
-				<td>帅哥一枚</td>
-				<td>13843838438</td>
-				<td>******</td>
-				<td>2088-1-1</td>
-				<td>2088-1-1</td>
-			</tr>
-			<tr>
-				<td>1001</td>
-				<td>帅哥一枚</td>
-				<td>13843838438</td>
-				<td>******</td>
-				<td>2088-1-1</td>
-				<td>2088-1-1</td>
-			</tr>
-			<tr>
-				<td>1001</td>
-				<td>帅哥一枚</td>
-				<td>13843838438</td>
-				<td>******</td>
-				<td>2088-1-1</td>
-				<td>2088-1-1</td>
-			</tr>
+		<table id="users_list" class="tab tab-hover">
+			<script>
+				$(function(){
+					$("#users_list").bootstrapTable({
+						url:"/user/findAll.udo",//数据地址
+						striped:true,//是否显示行的间隔
+						pageNumber:1,//初始化加载第几页
+						pagination:true,//是否分页
+						sidePagination:'server',
+						pageSize:5,
+						pageList:[5,10,20],
+						showRefresh:true,
+						queryParams:function(params){
+							var temp = {
+								offset:params.offset,
+								pageNumber:params.limit,
+								courer:1
+							};
+							return temp;
+						},
+						columns:[
+							{
+								title:"编号",
+								field:"id",
+								sortable:false
+							},
+							{
+								title:"昵称",
+								field:"userName",
+								sortable:false
+							},
+							{
+								title:"手机号码",
+								field:"userPhone",
+								sortable:false
+							},
+							{
+								title:"密码",
+								field:"password",
+								sortable:false
+							},
+							{
+								title:"注册时间",
+								field:"createTime",
+								sortable:false
+							},
+							{
+								title:"上次登录时间",
+								field:"loginTime",
+								sortable:false
+							},
+						]
+					});
+				});
+			</script>
 		</table>
 	</body>
 </html>

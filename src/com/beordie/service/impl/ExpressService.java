@@ -92,6 +92,9 @@ public class ExpressService implements IExpressService {
         } catch (RepeatCodeException e) {
             return insertExpress(number, username, company, userPhone,sysPhone);
         }
+        if (result > 0) {
+            // 新增成功发送短信
+        }
         return result;
     }
 

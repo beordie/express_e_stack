@@ -39,7 +39,7 @@ public interface IUserService {
      * @type [boolean, int, int] 
      * @return java.util.List<com.beordie.model.Users>
      */
-    public List<StandardUsers> getAllUsers(boolean isLimit, int offset, int pageNum);
+    public List<StandardUsers> getAllUsers(boolean isLimit, int offset, int pageNum, int identity);
 
     /**
      * @description 插入一条数据
@@ -48,7 +48,7 @@ public interface IUserService {
      * @type [java.lang.String, java.lang.String, java.lang.String]
      * @return int
      */
-    public int insert(String username, String password, String phone, String number);
+    public int insert(String username, String password, String phone, String number, int identity);
 
     /**
      * @description 修改记录
@@ -57,7 +57,7 @@ public interface IUserService {
      * @type [java.lang.String, java.lang.String, java.lang.String, int]
      * @return int
      */
-    public int update(String username, String password, String phone, int id);
+    public int update(String username, String password, String phone, String number, int id);
 
     /**
      * @description 删除一条记录
@@ -75,7 +75,7 @@ public interface IUserService {
      * @type []
      * @return java.util.List<java.util.Map<java.lang.String,java.lang.Integer>>
      */
-    public Map<String, Integer> getConsoleData();
+    public List<Map<String, Integer>> getConsoleData();
 
     /**
      * @description 根据电话查询
@@ -84,5 +84,5 @@ public interface IUserService {
      * @type [java.lang.String]
      * @return com.beordie.model.Users
      */
-    public Users getByPhone(String phone);
+    public Users getByPhone(String phone, int identity);
 }

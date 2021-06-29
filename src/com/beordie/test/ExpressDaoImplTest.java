@@ -1,17 +1,21 @@
 package com.beordie.test;
 
 import com.beordie.dao.IExpressDao;
+import com.beordie.dao.IUserDao;
 import com.beordie.dao.impl.ExpressDaoImpl;
+import com.beordie.dao.impl.UserDaoImpl;
 import com.beordie.exception.RepeatCodeException;
-import com.beordie.model.Express;
-import com.beordie.model.Message;
-import com.beordie.model.ResultData;
-import com.beordie.model.StandardExpress;
+import com.beordie.model.*;
 import com.beordie.service.IExpressService;
+import com.beordie.service.IUserService;
 import com.beordie.service.impl.ExpressService;
+import com.beordie.service.impl.UserServiceImpl;
 import com.beordie.utils.JsonUtils;
 import org.junit.Test;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,6 +30,7 @@ import static org.junit.Assert.*;
 public class ExpressDaoImplTest {
     private IExpressDao dao = new ExpressDaoImpl();
     IExpressService service = new ExpressService();
+    private IUserService userService = new UserServiceImpl();
 
     @Test
     public void getConsoleData() {
@@ -119,15 +124,16 @@ public class ExpressDaoImplTest {
 //        }
 //        String json = JsonUtils.parseObject(message);
         //3.    进行查询
-        List<StandardExpress> list = service.getAllExpress(true, 0, 5);
-        List<Map<String, Integer>> result = service.getConsoleData();
-        Integer total = result.get(0).get("data1_size");
-
-        //4.    将集合封装为 bootstrap-table识别的格式
-        ResultData<StandardExpress> data = new ResultData<>();
-        data.setRows(list);
-        data.setTotal(total);
-        String json = JsonUtils.parseObject(data);
-        System.out.println(json);
+//        List<StandardExpress> list = service.getAllExpress(true, 0, 5);
+//        List<Map<String, Integer>> result = service.getConsoleData();
+//        Integer total = result.get(0).get("data1_size");
+//
+//        //4.    将集合封装为 bootstrap-table识别的格式
+//        ResultData<StandardExpress> data = new ResultData<>();
+//        data.setRows(list);
+//        data.setTotal(total);
+//        String json = JsonUtils.parseObject(data);
+//        System.out.println(json);
+            List<StandardUsers> list = userService.getAllUsers(true,0,5,0);
     }
 }
