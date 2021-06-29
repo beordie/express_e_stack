@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/add.css"/>
+</head>
+<body>
+<div id="app">
+    <div class="header">
+        <span>修改快递员</span>
+    </div>
+    <div class="content">
+        <table>
+            <tr>
+                <td class="text-right">手机号码</td>
+                <td class="content_right"><input id="phone" class="input inline-input" placeholder="请输入手机号码"> <span id="find"
+                        class="btn btn-info">立即查找</span></td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="header">
+        <span>查找信息如下</span>
+    </div>
+    <div class="content">
+        <table>
+            <tr>
+                <td class="text-right">姓名</td>
+                <td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+            </tr>
+            <tr>
+                <td class="text-right">手机号码</td>
+                <td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+            </tr>
+            <tr>
+                <td class="text-right">身份证号码</td>
+                <td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+            </tr>
+            <tr>
+                <td class="text-right">密码</td>
+                <td class="content_right"><input class="input" placeholder="请输入姓名"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="content_right"><span id="update" class="btn btn-info">立即修改</span></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<script src="/qrcode/jquery2.1.4.js"></script>
+<script src="/layer/layer.js"></script>
+<script>
+    $(".header:eq(1),.content:eq(1)").hide();
+    var userId = null;
+    function checkName(name) {
+        var reg = new RegExp(/[a-zA-Z]{5,10}/i);
+        if (reg.test(name))
+            return true;
+        layer.msg('用户名错误（5-10位字母组成）')
+        return false;
+    }
+    function checkPhone(phone) {
+        var reg = new RegExp(/^1[3|4|5|7|8][0-9]{9}$/i);
+        if (reg.test(phone))
+            return true;
+        layer.msg('电话格式错误')
+        return false;
+    }
+    function checkNumber(number) {
+        var reg = new RegExp(/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/);
+        if (reg.test(number))
+            return true;
+        layer.msg('身份证格式错误')
+        return false;
+    }
+    function checkPassword(password) {
+        var reg = new RegExp(/^\w\w{7,11}$/i)
+        if (reg.test(password))
+            return true;
+        layer.msg('密码不符合8-12位字母数字组成')
+        return false;
+    }
+    $(function () {
+        $("#find").click(function () {
+            var windowId = layer.load();
+            var phone = $("#phone").val();
+            if (checkPhone(phone)) {
+                $.getJSON("/user/findByPhone.udo", {
+                    phone: phone,
+                    identity: 1
+                }, function (data) {
+                    layer.close(windowId);
+                    layer.msg(data.result);
+                    if (data.status == 0) {
+                        userId = data.data.id;
+                        $("input:eq(1)").val(data.data.userName);
+                        $("input:eq(2)").val(data.data.userPhone);
+                        $("input:eq(3)").val(data.data.number);
+                        $("input:eq(4)").val(data.data.password);
+                        $(".header:eq(1),.content:eq(1)").fadeIn(1000);
+                    }
+                });
+            } else {
+                layer.close(windowId);
+            }
+
+        });
+
+        $('#update').click(function () {
+            var windowId = layer.load(0);
+            var userName = $("input:eq(1)").val();
+            var userPhone = $("input:eq(2)").val();
+            var number = $("input:eq(3)").val();
+            var password = $("input:eq(4)").val();
+            if (checkName(userName) && checkPhone(userPhone) && checkNumber(number) && checkPassword(password)) {
+                $.post("/user/update.udo", {
+                    userName: userName,
+                    userPhone: userPhone,
+                    number: number,
+                    password: password,
+                    userId: userId
+                }, function (data) {
+                    layer.close(windowId);
+                    layer.msg(data.result);
+                    if (data.status == 0) {
+                        $(".header:eq(1),.content:eq(1)").hide();
+                    }
+                });
+            } else {
+                layer.close(windowId);
+            }
+        });
+    });
+</script>
+</html>
