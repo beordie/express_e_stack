@@ -21,6 +21,13 @@ public class PassportFilter implements Filter {
 
     }
 
+    /**
+     * @description 身份验证拦截页面信息
+     * @author 30500
+     * @date 2021/6/30 9:47
+     * @type [javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain]
+     * @return void
+     */
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         System.out.println("拦截到请求");

@@ -6,7 +6,7 @@ import java.util.Date;
 
 /**
  * @Classname StandardUsers
- * @Description 
+ * @Description 标准话的用户管理类
  * @Date 2021/6/28 19:11
  * @Created 30500
  */

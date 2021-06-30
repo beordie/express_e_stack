@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>快递助手 -- 快件e栈服务平台</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<link href="css/normalize.css" type="text/css" rel="stylesheet" />
+	<link href="css/common.css" type="text/css" rel="stylesheet" />
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/notice.js" type="text/javascript"></script>
+	<script src="js/common.js" type="text/javascript"></script>
+	<style type="text/css">
+		.expAssistantCont{
+			width: 100%;
+		}
+		.expAssistantCont div{
+			width: 100%;
+			height: 80px;
+			background-image: linear-gradient(to left top, #933,#3bb,#3bb,#3bb,#3bb,#3bb,#933);
+			position: relative;
+			text-align: center;
+		}
+		.expAssistantCont div p{
+			font-size: 30px;
+			font-weight: bolder;
+			color: #fff;
+			line-height: 80px;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="content">
+	<div class="headerNav">
+		<div class="headerNavTop"><div class="headerNavIcon headerNavIconOut"><span></span><span></span></div></div>
+		<div class="headerNavCont">
+			<a href="./index.html">快递首页</a>
+			<a href="./userhome.html">个人中心</a>
+			<a href="./delivery.html">送货上门</a>
+<!-- 			<a href="./sendexpress.html">我要寄件</a>
+ -->			<a href="./lazyboard.html">懒人排行</a>
+			<a href="./expassistant.html">快递助手</a>
+		</div>
+	</div>
+	<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
+	<div class="expAssistantCont">
+		<div class="controw1">
+			<p>录入快递</p>
+		</div>
+		<div class="controw2">
+				<p>扫码取件</p>
+		</div>
+		<div class="controw3">
+				<p>历史查询</p>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var pageContextVal = $("#PageContext").val();
+	$(function() {
+		var initFunc = function(){
+			var windowH = $(window).height();
+			var row1H = $(".controw1").height();
+			var row2H = windowH - row1H - 50; 
+
+			$(".controw2right").css({"height":row2H+"px"});
+			$(".controw2Left div").css({"height":row2H/2+"px"});
+		};
+
+		initFunc();
+
+		$(window).resize(function(){
+			initFunc();
+		});
+
+		//hyperlink
+		$(".controw1").click(function(){
+			window.location.href= "addExpress.html";
+		});
+		$(".controw2").click(function(){
+			window.location.href="pickExpress.html";
+		});
+		$(".controw3").click(function(){
+			window.location.href="infoExpress.html";
+		});
+	});
+</script>
+</body>
+</html>

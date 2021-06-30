@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>录入快递 -- 快件e栈服务平台</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	
+	<link href="css/normalize.css" type="text/css" rel="stylesheet" />
+	<link href="css/common.css" type="text/css" rel="stylesheet" />
+	<script src="js/jquery.min.js" type="text/javascript"></script>
+	<script src="js/common.js" type="text/javascript"></script>
+	<script src="js/notice.js" type="text/javascript"></script>
+	<script src="js/regexp.js" type="text/javascript"></script>
+	<script src="js/jweixin-1.2.0.js" type="text/javascript"></script>
+	<style type="text/css">
+		.content{
+			position: relative;
+		}
+		.expEnterCont{
+			padding-bottom: 20px;
+		}
+		.expEnterCont .expEnterIcon{
+			width: 20%;
+			margin: 0 auto;
+		}
+		.expEnterCont .expEnterIcon p{
+			text-align: center;
+			font-weight: bold;
+		}
+
+		.submitBtn{
+			width: 90%;
+			margin: 0 auto;
+			text-align: center;
+			line-height: 46px;
+			border-radius: 23px;
+			background: #1f72ff;
+			color: #fff;
+			font-weight: bolder;
+		}
+		
+		.stopvoicerecord{
+			width: 40%; 
+			height: 50px;
+			position: absolute;
+			top: 20px;
+			right: 40px;
+			display: none;
+			background:purple;
+		}
+		
+		.stopvoicerecord{
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0,0,0,0.5);
+			z-index: 1001;
+			display: none;
+		}
+		.stopvoicerecord .voiceRecordCont{
+			width: 60%; 
+			background: #fff;
+			border-radius: 8px;
+			position: absolute;
+			top: calc((100% - 216px) / 2);  /*30 + 110 +30 + 10 +36 == 216*/
+			left: 20%;
+			padding: 20px 0px 10px;
+		}
+		.stopvoicerecord .voiceRecordCont img{
+			display: block;
+			margin: 0 auto;
+			width: 110px;
+		}
+		.stopvoicerecord .voiceRecordCont .voiceRecordState{
+			margin: 0px;
+			text-align: center;
+			font-size: 14px;
+			color: #777777;
+			line-height: 30px;
+		}
+		.stopvoicerecord .voiceRecordCont #stopVoiceRecordBtn{
+			margin: 10px auto 0px;
+			width: 90%; 
+			text-align: center;
+			line-height: 36px;
+			background: #3eb94e;
+			font-size: 14px;
+			color: #fff;
+			font-weight: bold;
+			border-radius: 18px;
+		}
+	</style>
+</head>
+<body>
+<div class="content">
+	<div class="headerNav">
+		<div class="headerNavTop"><div class="headerNavIcon headerNavIconOut"><span></span><span></span></div></div>
+		<div class="headerNavCont">
+			<a href="../index.html">快递首页</a>
+			<a href="../userhome.html">个人中心</a>
+			<a href="../delivery.html">送货上门</a>
+			<a href="../sendexpress.html">我要寄件</a>
+			<a href="../lazyboard.html">懒人排行</a>
+			<a href="../expassistant.html">快递助手</a>
+		</div>
+	</div>
+
+	<div class="expEnterCont">
+		<div class="expEnterIcon">
+			<img src="images/expentericon.png" width="100%">
+			<p>录入快递</p>
+		</div>
+		<div class="expEnterInput">
+				<input id="timestamp" type="hidden" value="${timestamp}" />
+				<input id="noncestr" type="hidden" value="${nonceStr}" />
+				<input id="signature" type="hidden" value="${signature}" />
+				<input id="appId" type="hidden" value="${appId}" />
+			<form>
+				<input id="PageContext" type="hidden" value="${pageContext.request.contextPath}" />
+				<input id="wxCode" type="hidden" value="${wxCode}" />
+				<div class="userInputCont">
+					<div class="inputTypeCont">
+						<div class="inputTitle">单号</div>
+						<input type="text" id="expressId" class="commonInputFunc" name="expressId" placeholder="请输入快递单号...">
+					</div>
+					<div class="inputTypeCont">
+						<div class="inputTitle">姓名</div>
+						<input type="text" id="username" class="commonInputFunc" name="phone" placeholder="请输入收件人姓名">
+					</div>
+					<div class="inputTypeCont">
+						<div class="inputTitle">手机</div>
+						<input type="text" id="phone" class="commonInputFunc" name="phone" placeholder="录入后短信自动提醒">
+					</div>
+					<div class="inputTypeCont">
+						<div class="inputTitle">公司</div>
+						<select id="company" name="company">  
+							<option >安能快递</option><option>安能物流</option><option >澳大利亚邮政</option><option >阿根廷邮政</option><option >爱沙尼亚邮政</option><option >阿联酋邮政</option><option >奥地利邮政</option><option >阿尔巴尼亚邮政</option><option >Aramex</option><option >巴西邮政</option><option >比利时邮政</option><option >百世快运</option><option >波兰邮政</option><option >白俄罗斯邮政</option><option >保加利亚邮政</option><option >巴基斯坦邮政</option><option >百福东方</option><option >包裹信件</option><option >晟邦物流</option><option >城市100</option><option >City-Link</option><option >COE</option><option >传喜物流</option><option >德邦快递</option><option >大田物流</option><option >递四方</option><option >DHL德国</option><option >DHL全球</option><option >DHL中国</option><option >EMS</option><option >EMS国际</option><option >EMS经济快递</option><option >FedEx中国</option><option >FedEx国际</option><option >FedEx美国</option><option >飞豹快递</option><option >凡宇快递</option><option >飞远配送</option><option >飞远(爱彼西)</option><option >法国邮政</option><option >芬兰邮政</option><option >国通快递</option><option >postco</option><option >百世快递</option><option >恒路物流</option><option >黄马甲配送</option><option >黑猫宅急便</option><option >华企快运</option><option >韩国邮政</option><option >佳吉快运</option><option >京东快递</option><option >佳怡物流</option><option "jinguangsudikuaijian">京广速递</option><option >日本邮政</option><option >筋斗云物流</option><option >捷克邮政</option><option >嘉里大通</option><option >加运美</option><option >快捷快递</option><option >跨越速运</option><option >克罗地亚邮政</option><option >联昊通</option><option >龙邦速递</option><option >黎巴嫩邮政</option><option >民航快递</option><option >秘鲁邮政</option><option >毛里求斯邮政</option><option >马耳他邮政</option><option >摩尔多瓦邮政</option><option >马其顿邮政</option><option >民邦快递</option><option "szml56">明亮物流</option><option >挪威邮政</option><option >南非邮政</option><option >OnTrac</option><option >葡萄牙邮政</option><option >全峰快递</option><option >全一快递</option><option >如风达</option><option >申通快递</option><option selected="selected">顺丰速运</option><option >速尔快递</option><option >盛丰物流</option><option >圣安物流</option><option >盛辉物流</option><option >瑞士邮政</option><option >苏宁快递</option><option >斯洛伐克邮政</option><option >沙特邮政</option><option >斯洛文尼亚邮政</option><option >塞尔维亚邮政</option><option >天天快递</option><option >天地华宇</option><option >土耳其邮政</option><option >泰国邮政</option><option >TNT</option><option >UPS</option><option >USPS</option><option >万象物流</option><option >乌克兰邮政</option><option >万家物流</option><option >信丰物流</option><option >新邦物流</option><option >西班牙邮政</option><option >匈牙利邮政</option><option >圆通速递</option><option >韵达快递</option><option >优速物流</option><option >银捷速递</option><option >远成物流</option><option >运通中港快递</option><option >邮政国内小包</option><option >英国皇家邮政</option><option >意大利邮政</option><option >印度邮政</option><option >亚美尼亚邮政</option><option >越丰物流</option><option >亚风速递</option><option >邮政国际包裹</option><option >中通快递</option><option >宅急送</option><option >中铁物流</option><option >增益速递</option><option >中铁快运</option><option >芝麻开门</option><option >中国邮政</option><option >智利邮政</option><option >中速快递</option>
+                         </select>  
+					</div>
+				</div>
+			</form>
+			<div class="submitBtn">录入信息</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	
+</script>
+</body>
+</html>

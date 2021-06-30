@@ -25,6 +25,13 @@ import java.util.Map;
 public class AdminController {
     private IAdminService adminService = new AdminService();
 
+    /**
+     * @description 登陆管理
+     * @author 30500
+     * @date 2021/6/30 10:03
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/admin/login.udo")
     public String login(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("username");
@@ -48,6 +55,13 @@ public class AdminController {
         return result;
     }
 
+    /**
+     * @description 退出管理
+     * @author 30500
+     * @date 2021/6/30 10:03
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/admin/quit.udo")
     public String quit(HttpServletRequest request, HttpServletResponse response) {
         AdminUtils.quit(request.getSession());

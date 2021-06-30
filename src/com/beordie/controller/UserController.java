@@ -23,6 +23,13 @@ import java.util.Map;
 public class UserController {
     private IUserService userService = new UserServiceImpl();
 
+    /**
+     * @description 查找所有的用信息，根据身份的不同来选择不同的查询范围
+     * @author 30500
+     * @date 2021/6/30 10:04
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/user/findAll.udo")
     public String getAll(HttpServletRequest request, HttpServletResponse response) {
         //1.    获取查询数据的起始索引值
@@ -49,6 +56,13 @@ public class UserController {
         return json;
     }
 
+    /**
+     * @description 插入一条用户信息
+     * @author 30500
+     * @date 2021/6/30 10:04
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/user/insert.udo")
     public String insert(HttpServletRequest request, HttpServletResponse response) {
         String name = request.getParameter("name");
@@ -70,6 +84,13 @@ public class UserController {
         return json;
     }
 
+    /**
+     * @description 按照电话查询用户信息
+     * @author 30500
+     * @date 2021/6/30 10:04
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/user/findByPhone.udo")
     public String findByPhone(HttpServletRequest request, HttpServletResponse response) {
         // 获取参数
@@ -92,6 +113,13 @@ public class UserController {
         return json;
     }
 
+    /**
+     * @description 更新用户信息
+     * @author 30500
+     * @date 2021/6/30 10:04
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/user/update.udo")
     public String updateUser(HttpServletRequest request, HttpServletResponse response) {
         // 获得参数
@@ -114,6 +142,13 @@ public class UserController {
         return json;
     }
 
+    /**
+     * @description 删除用户
+     * @author 30500
+     * @date 2021/6/30 10:03
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/user/delete.udo")
     public String deleteUser(HttpServletRequest request, HttpServletResponse response) {
         int userId = Integer.parseInt(request.getParameter("id"));
