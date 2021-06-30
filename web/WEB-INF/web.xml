@@ -6,7 +6,7 @@
 
 <!--    欢迎界面-->
     <welcome-file-list>
-        <welcome-file>admin/login.html</welcome-file>
+        <welcome-file>/login.html</welcome-file>
     </welcome-file-list>
 
 <!--    配置网页请求-->
@@ -50,14 +50,14 @@
 <!--    </servlet-mapping>-->
 
 <!--    配置拦截器-->
-    <filter>
-        <filter-name>passport</filter-name>
-        <filter-class>com.beordie.filter.PassportFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>passport</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>passport</filter-name>-->
+<!--        <filter-class>com.beordie.filter.PassportFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>passport</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
 
     <filter>
         <filter-name>character</filter-name>
