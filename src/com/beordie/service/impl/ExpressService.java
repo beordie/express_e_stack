@@ -59,7 +59,7 @@ public class ExpressService implements IExpressService {
 
     @Override
     public Express getByCode(String code) {
-        return null;
+        return expressDao.getByCode(code);
     }
 
     @Override
@@ -69,7 +69,7 @@ public class ExpressService implements IExpressService {
 
     @Override
     public List<Express> getBySysPhone(String sysPhone) {
-        return null;
+        return getBySysPhone(sysPhone);
     }
 
     @Override
@@ -125,7 +125,18 @@ public class ExpressService implements IExpressService {
     }
 
     @Override
+    public List<StandardExpress> getByUserPhoneAndStatus(String userPhone, int status) {
+        List<Express> result = expressDao.getByUserPhoneAndStatus(userPhone, status);
+        List<StandardExpress> expressList = new ArrayList<>();
+        for (Express e : result) {
+            StandardExpress express = new StandardExpress(e);
+            expressList.add(express);
+        }
+        return expressList;
+    }
+
+    @Override
     public int pickUpExpress(String code) {
-        return 0;
+        return expressDao.pickUpExpress(code);
     }
 }

@@ -59,4 +59,38 @@ public class ExpressController {
         message.setData(result);
         return JsonUtils.parseObject(message);
     }
+
+    @ResponseText("/wx/getUserExpress.udo")
+    public String getgetUserExpress(HttpServletRequest request, HttpServletResponse response) {
+        String userPhone = request.getParameter("userPhone");
+        // 查询手机号且没有出库的快递
+        List<StandardExpress> result = expressService.getByUserPhoneAndStatus(userPhone, 0);
+        Message message = new Message();
+        if (result.size() == 0) {
+            message.setStatus(-1);
+            message.setResult("没有快递信息");
+        } else {
+            message.setStatus(0);
+            message.setResult("查询成功");
+            message.setData(result);
+        }
+        String json = JsonUtils.parseObject(message);
+        return json;
+    }
+
+    @ResponseText("/wx/pickExpress.udo")
+    public String pickExpress(HttpServletRequest request, HttpServletResponse response) {
+        String code = request.getParameter("code");
+
+        int result = expressService.pickUpExpress(code);
+        Message message = new Message();
+        if (result > 0) {
+            message.setStatus(0);
+            message.setResult("取件成功");
+        } else {
+            message.setStatus(-1);
+            message.setResult("取件失败");
+        }
+        return JsonUtils.parseObject(message);
+    }
 }

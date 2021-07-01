@@ -4,6 +4,7 @@ import com.beordie.model.Users;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Classname IUserDao
@@ -24,7 +25,7 @@ public interface IUserDao {
     String SQL_INSERT = "INSERT INTO USERS VALUES(NULL,?,?,NULL,NULL,NOW(),?,?,?)";
     // 删除一条记录
     String SQL_DELETE = "DELETE FROM USERS WHERE ID=?";
-    // 跟新数据
+    // 更新数据
     String SQL_UPDATE = "UPDATE USERS SET USERNAME=?,PASSWORD=?,PHONE=?,NUMBER=? WHERE ID=?";
     // 查询所有（根据相应的身份进行验证查询）
     String SQL_SELECT_COURER = "SELECT U.ID,U.USERNAME,U.PASSWORD,U.LOGINIP,U.LOGINTIME,U.CREATETIME,U.PHONE,U.NUMBER,COUNT(E.OUTTIME) TOTAL FROM USERS U LEFT OUTER JOIN EXPRESS E ON U.PHONE=E.SYSPHONE WHERE IDENTITY=? GROUP BY(U.id)";
@@ -32,6 +33,9 @@ public interface IUserDao {
     String SQL_SELECT_LIMIT_COURER = "SELECT U.ID,U.USERNAME,U.PASSWORD,U.LOGINIP,U.LOGINTIME,U.CREATETIME,U.PHONE,U.NUMBER,COUNT(E.OUTTIME) TOTAL FROM USERS U LEFT OUTER JOIN EXPRESS E ON U.PHONE=E.SYSPHONE WHERE IDENTITY=? GROUP BY(U.id) LIMIT ?,?";
     // 根据电话查询
     String SQL_FIND_BY_PHONE = "SELECT * FROM USERS WHERE PHONE=? AND IDENTITY=?";
+    // 查询所有的数据
+    String SQL_GET_ALL_RANK = "SELECT U.USERNAME,COUNT(E.OUTTIME) C FROM USERS U LEFT OUTER JOIN EXPRESS E ON U.PHONE=E.USERPHONE GROUP BY(U.ID) ORDER BY C DESC";
+
 
     /**
      * @description 根据登录名和密码查询
@@ -105,4 +109,6 @@ public interface IUserDao {
      * @return com.beordie.model.Users
      */
     public Users getByPhone(String phone, int identity);
+
+    public List<Map<String, String>> getAllRank();
 }

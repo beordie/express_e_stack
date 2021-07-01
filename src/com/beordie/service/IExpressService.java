@@ -25,29 +25,23 @@ public interface IExpressService {
      */
     public List<Map<String, Integer>> getConsoleData();
 
-
     public List<StandardExpress> getAllExpress(boolean isLimit, int offset, int pageNum);
-
 
     public Express getByCode(String code);
 
-
     public Express getByNUmber(String number);
-
 
     public List<Express> getBySysPhone(String sysPhone);
 
-
     public List<StandardExpress> getByUserPhone(String userPhone);
-
 
     public int insertExpress(String number, String username, String company, String userPhone, String sysPhone) ;
 
-
     public int updateExpress(int id, String number, String username, String company, String userPhone, int status);
-
 
     public int deleteExpress(int id);
 
     public int pickUpExpress(String code);
+
+    public List<StandardExpress> getByUserPhoneAndStatus(String userPhone, int status);
 }

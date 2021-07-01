@@ -248,4 +248,36 @@ public class ExpressDaoImpl extends DBUtils implements IExpressDao {
         int result = super.update(SQL_PICKUP, params);
         return result;
     }
+
+    @Override
+    public List<Express> getByUserPhoneAndStatus(String userPhone, int status) {
+        List<Express> list = new ArrayList<>();
+        List<Object> params = new ArrayList<>();
+        params.add(userPhone);
+        params.add(status);
+        resultSet = super.query(SQL_FIND_BY_USERPHONE_AND_STATUS, params);
+
+        try {
+            while (resultSet.next()) {
+                Express e = new Express();
+                e.setId(resultSet.getInt("id"));
+                e.setNumber(resultSet.getString("number"));
+                e.setUserName(resultSet.getString("username"));
+                e.setUserPhone(userPhone);
+                e.setCompany(resultSet.getString("company"));
+                e.setCode(resultSet.getString("code"));
+                e.setInTime(resultSet.getDate("intime"));
+                e.setOutTime(resultSet.getDate("outtime"));
+                e.setStatus(status);
+                e.setSysPhone(resultSet.getString("sysphone"));
+
+                list.add(e);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } finally {
+            super.close();
+        }
+        return list;
+    }
 }

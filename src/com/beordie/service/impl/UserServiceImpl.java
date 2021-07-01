@@ -23,6 +23,11 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
+    public List<Map<String, String>> getAllRank() {
+        return userDao.getAllRank();
+    }
+
+    @Override
     public int updateIpLoginTime(int id, String ip, Date time) {
         return userDao.updateIpLoginTime(id, ip, time);
     }

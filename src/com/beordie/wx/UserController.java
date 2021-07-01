@@ -12,6 +12,9 @@ import com.beordie.utils.UserUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -84,13 +87,14 @@ public class UserController {
                     message.setResult("管理员登陆成功");
                     UserUtils.setAuthority(request.getSession(), true);
                 }
+                // 到这一步 users 肯定有数据
+                UserUtils.setUserInfo(request.getSession(), users);
+                service.updateIpLoginTime(users.getId(), request.getRemoteAddr(), new Date());
             }
         } else { // 该手机未获取验证码
             message.setStatus(-1);
             message.setResult("该手机未获取验证码");
         }
-        // 到这一步 users 肯定有数据
-        UserUtils.setUserInfo(request.getSession(), users);
         // 返回结果
         message.setData(users);
         String json = JsonUtils.parseObject(message);
@@ -111,6 +115,13 @@ public class UserController {
         return JsonUtils.parseObject(message);
     }
 
+    /**
+     * @description 查询用户权限
+     * @author 30500
+     * @date 2021/7/1 16:26
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
     @ResponseText("/wx/userInfo.udo")
     public String userInfo(HttpServletRequest request, HttpServletResponse response) {
         Users users = UserUtils.getUserInfo(request.getSession());
@@ -124,6 +135,50 @@ public class UserController {
             } else { // 用户
                 message.setStatus(1);
             }
+        }
+        return JsonUtils.parseObject(message);
+    }
+
+    /**
+     * @description 获取排名
+     * @author 30500
+     * @date 2021/7/1 17:34
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
+    @ResponseText("/wx/getAllUser.udo")
+    public String getAllRank(HttpServletRequest request, HttpServletResponse response) {
+        List<Map<String, String>> result = service.getAllRank();
+        Message message = new Message();
+
+        if (result.size() == 0) {
+            message.setStatus(-1);
+            message.setResult("没有结果");
+        } else {
+            message.setStatus(0);
+            message.setResult("查询成功");
+            message.setData(result);
+        }
+        return JsonUtils.parseObject(message);
+    }
+
+    /**
+     * @description 获取当前用户名
+     * @author 30500
+     * @date 2021/7/1 17:35
+     * @type [javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse]
+     * @return java.lang.String
+     */
+    @ResponseText("/wx/getUserName.udo")
+    public String getUserName(HttpServletRequest request, HttpServletResponse response) {
+        String userName = UserUtils.getUserInfo(request.getSession()).getUserName();
+
+        Message message = new Message();
+        if (userName != null) {
+            message.setStatus(0);
+            message.setData(userName);
+        } else {
+            message.setStatus(-1);
         }
         return JsonUtils.parseObject(message);
     }

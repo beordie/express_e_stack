@@ -85,4 +85,13 @@ public interface IUserService {
      * @return com.beordie.model.Users
      */
     public Users getByPhone(String phone, int identity);
+
+    /**
+     * @description 获取总排名
+     * @author 30500
+     * @date 2021/7/1 17:03
+     * @type []
+     * @return java.util.Map<java.lang.String,java.lang.Integer>
+     */
+    public List<Map<String, String>> getAllRank();
 }

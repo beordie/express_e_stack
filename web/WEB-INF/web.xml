@@ -6,7 +6,7 @@
 
 <!--    欢迎界面-->
     <welcome-file-list>
-        <welcome-file>/login.html</welcome-file>
+        <welcome-file>admin/login.html</welcome-file>
     </welcome-file-list>
 
 <!--    配置网页请求-->

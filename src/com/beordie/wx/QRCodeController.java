@@ -35,7 +35,6 @@ public class QRCodeController {
         String qRCodeContent = null;
         if("express".equals(type)){
             //快递二维码:被扫后,展示单个快递的信息
-            //code
             qRCodeContent = "express_"+code;
         }else{
             //用户二维码:被扫后,快递员(柜子)端展示用户所有快递

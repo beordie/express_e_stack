@@ -6,9 +6,7 @@ import com.beordie.model.Users;
 import com.beordie.utils.DBUtils;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Classname UserDaoImpl
@@ -97,6 +95,26 @@ public class UserDaoImpl extends DBUtils implements IUserDao {
             result = super.update(SQL_UPDATE, params);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            super.close();
+        }
+        return result;
+    }
+
+    @Override
+    public List<Map<String, String>> getAllRank() {
+        List<Map<String, String>> result = new ArrayList<>();
+
+        try {
+            resultSet = super.query(SQL_GET_ALL_RANK, null);
+            while (resultSet.next()) {
+                Map<String, String> temp = new HashMap<>();
+                temp.put("name", resultSet.getString(1));
+                temp.put("total", resultSet.getString(2));
+                result.add(temp);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         } finally {
             super.close();
         }

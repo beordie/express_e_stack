@@ -25,6 +25,8 @@ public interface IExpressDao {
     String SQL_FIND_BY_SYSPHONE = "SELECT * FROM EXPRESS WHERE SYSPHONE = ?";
     // 根据用户手机号查询所有快件信息
     String SQL_FIND_BY_USERPHONE = "SELECT * FROM EXPRESS WHERE USERPHONE = ?";
+    // 根据用户手机号查询所有快件信息
+    String SQL_FIND_BY_USERPHONE_AND_STATUS = "SELECT * FROM EXPRESS WHERE USERPHONE = ? AND STATUS=?";
     // 新增一条快件信息
     String SQL_INSERT = "INSERT INTO EXPRESS VALUES(NULL,?,?,?,?,?,NOW(),NULL,0,?)";
     // 更新快件信息
@@ -114,4 +116,13 @@ public interface IExpressDao {
      * @return int
      */
     public int pickUpExpress(String code);
+
+    /**
+     * @description 根据电话和状态查询
+     * @author 30500
+     * @date 2021/7/1 15:42
+     * @type [java.lang.String]
+     * @return java.util.List<com.beordie.model.Express>
+     */
+    public List<Express> getByUserPhoneAndStatus(String userPhone, int status);
 }
