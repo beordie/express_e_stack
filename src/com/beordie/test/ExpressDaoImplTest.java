@@ -10,14 +10,18 @@ import com.beordie.service.IExpressService;
 import com.beordie.service.IUserService;
 import com.beordie.service.impl.ExpressService;
 import com.beordie.service.impl.UserServiceImpl;
+import com.beordie.utils.FormatDate;
 import com.beordie.utils.JsonUtils;
+import com.beordie.utils.UserUtils;
 import org.junit.Test;
 
+import javax.persistence.criteria.From;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.junit.Assert.*;
 
@@ -134,6 +138,19 @@ public class ExpressDaoImplTest {
 //        data.setTotal(total);
 //        String json = JsonUtils.parseObject(data);
 //        System.out.println(json);
-            List<StandardUsers> list = userService.getAllUsers(true,0,5,0);
+//            List<StandardUsers> list = userService.getAllUsers(true,0,5,0);
+        List<StandardExpress> list = service.getByUserPhone("15934885591");
+
+        Stream<StandardExpress> standardExpressStream = list.stream().filter(e -> {
+            if (e.getStatus() == 1)
+                return true;
+            else
+                return false;
+        }).sorted((e1, e2)->{
+            return (int) (FormatDate.parseString(e1.getInTime()) - FormatDate.parseString(e2.getInTime()));
+        });
+
+        for (Object express:standardExpressStream.toArray())
+            System.out.println(express);
     }
 }

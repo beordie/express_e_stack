@@ -60,7 +60,7 @@ public class HandlerMapping {
                                     throw new RuntimeException("方法重复" + ((ResponseText) annotation).value());
                                 // 返回页面信息
                             } else if (annotation instanceof ResponseView) {
-                                Mapping mapping = new Mapping(instance, ResponseType.TEXT, method);
+                                Mapping mapping = new Mapping(instance, ResponseType.VIEW, method);
                                 Object re = data.put(((ResponseView) annotation).value(), mapping);
                                 if (re != null)
                                     throw new RuntimeException("方法重复" + ((ResponseView) annotation).value());

@@ -1,5 +1,6 @@
 package com.beordie.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,5 +23,22 @@ public class FormatDate {
      */
     public static String parseDate(Date date) {
         return format.format(date);
+    }
+
+    /**
+     * @description 解析字符串为时间戳
+     * @author 30500
+     * @date 2021/7/1 9:56
+     * @type [java.lang.String]
+     * @return long
+     */
+    public static long parseString(String time) {
+        long temp = 0;
+        try {
+            temp = format.parse(time).getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return temp;
     }
 }

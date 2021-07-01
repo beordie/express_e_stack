@@ -73,8 +73,14 @@ public class ExpressService implements IExpressService {
     }
 
     @Override
-    public List<Express> getByUserPhone(String userPhone) {
-        return null;
+    public List<StandardExpress> getByUserPhone(String userPhone) {
+        List<Express> result = expressDao.getByUserPhone(userPhone);
+        List<StandardExpress> expressList = new ArrayList<>();
+        for (Express e : result) {
+            StandardExpress express = new StandardExpress(e);
+            expressList.add(express);
+        }
+        return expressList;
     }
 
     @Override

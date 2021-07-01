@@ -21,6 +21,22 @@ public class StandardExpress {
     private String outTime;
     private Integer status;
 
+    @Override
+    public String toString() {
+        return "StandardExpress{" +
+                "id=" + id +
+                ", number='" + number + '\'' +
+                ", userName='" + userName + '\'' +
+                ", userPhone='" + userPhone + '\'' +
+                ", company='" + company + '\'' +
+                ", code='" + code + '\'' +
+                ", inTime='" + inTime + '\'' +
+                ", outTime='" + outTime + '\'' +
+                ", status=" + status +
+                ", sysPhone='" + sysPhone + '\'' +
+                '}';
+    }
+
     public StandardExpress(Express express) {
         this.id = express.getId();
         this.number = express.getNumber();

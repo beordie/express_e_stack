@@ -38,7 +38,7 @@ public interface IExpressService {
     public List<Express> getBySysPhone(String sysPhone);
 
 
-    public List<Express> getByUserPhone(String userPhone);
+    public List<StandardExpress> getByUserPhone(String userPhone);
 
 
     public int insertExpress(String number, String username, String company, String userPhone, String sysPhone) ;
